@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - ./server/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./server/db-data:/var/lib/postgresql/data
+  api:
+    image: node-api
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    volumes:
+      - ./server:/usr/src/app
