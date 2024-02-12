@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { addUser, deleteUser, getUsers } = require("./routes/users");
+const { getAll, remove, register } = require("./routes/users");
 
 const app = express();
 
@@ -12,9 +12,10 @@ app.use(express.json());
 // Middleware to parse URL-encoded form data in the request body
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/users", getUsers);
-app.post("/users", addUser);
-app.delete("/users/:id", deleteUser);
+app.get("/users", getAll);
+app.post("/users/register", register);
+app.post("/users/login", login);
+app.delete("/users/:id", remove);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
