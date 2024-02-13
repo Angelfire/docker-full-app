@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const pool = require("../config/db-config");
 
@@ -82,6 +82,15 @@ const login = async (req, res) => {
     }
 
     res.status(200).json({ message: "User logged in successfully." });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// TODO: Implement the logout function to remove the user's token from the database and log the user out
+const logout = (req, res) => {
+  try {
+    const userId = req.params.id;
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
