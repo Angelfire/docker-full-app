@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 const pool = require("../config/db-config");
+const { generateAccessToken } = require("../middlewares/jwt-auth");
 
 const remove = async (req, res) => {
   try {
@@ -53,37 +54,46 @@ const register = async (req, res) => {
   }
 };
 
+// TODO: Validate that 2 users cannot have the same email address
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Input validation
     if (!email || !password) {
-      res.status(400).json({ message: "All fields are required." });
-
-      return;
+      return res.status(400).json({ message: "All fields are required." });
     }
 
     const query = "SELECT * FROM users WHERE email = $1";
 
     const result = await pool.query(query, [email]);
+    // User not found
 
     if (result.rows.length === 0) {
-      res.status(404).json({ message: "User not found." });
-
-      return;
+      return res.status(404).json({ message: "User not found." });
     }
 
+    const verifiedPassword = await bcrypt.compare(password, user.password);
     const user = result.rows[0];
 
-    if (user.password !== password) {
-      res.status(401).json({ message: "Invalid credentials." });
-
-      return;
+    // Invalid credentials
+    if (!verifiedPassword) {
+      return res.status(401).json({ message: "Invalid credentials." });
     }
 
-    res.status(200).json({ message: "User logged in successfully." });
+    // Successful login
+    return res.status(200).json({
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        accessToken: generateAccessToken(user),
+      },
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    // Handle unexpected errors
+    console.error(error); // Log for debugging
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 

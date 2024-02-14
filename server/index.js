@@ -6,21 +6,22 @@ const { getAll, login, remove, register } = require("./routes/users");
 const app = express();
 
 const PORT = process.env.API_PORT;
+const FRONTEND_URL = process.env.REACT_HOST;
 
-// Middleware to parse JSON data in the request body
-app.use(express.json());
-
-// Middleware to parse URL-encoded form data in the request body
-app.use(express.urlencoded({ extended: true }));
-
-// Middleware to enable CORS
-app.use(cors());
-
-// TODO: Check why this is not working
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-// }));
+app
+  // Middleware to parse JSON data in the request body
+  .use(express.json())
+  // Middleware to parse URL-encoded form data in the request body
+  .use(express.urlencoded({ extended: true }))
+  // Middleware to enable CORS
+  // if you specify the origin directly as string it does not work
+  // but if you specify it as an environment variable it works fine o.O
+  .use(
+    cors({
+      origin: FRONTEND_URL,
+      methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+    })
+  );
 
 app.get("/users", getAll);
 app.post("/users/register", register);
