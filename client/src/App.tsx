@@ -1,9 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { Home } from "./pages/home"
-import { Login } from "./pages/login"
-import { Register } from "./pages/register"
-import { ErrorPage } from "./pages/error-page"
+import { Home } from "./pages/home";
+import { Login } from "./pages/login";
+import { Register } from "./pages/register";
+import { ErrorPage } from "./pages/error-page";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path="/:any" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

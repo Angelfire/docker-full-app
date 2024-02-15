@@ -64,7 +64,6 @@ export const Login = () => {
           aria-label="Password"
           autoComplete="current-password"
         />
-
         <button type="submit">Login</button>
       </form>
     </main>
