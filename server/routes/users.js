@@ -67,7 +67,6 @@ const login = async (req, res) => {
     const query = "SELECT * FROM users WHERE email = $1";
 
     const result = await pool.query(query, [email]);
-    // User not found
 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "User not found." });
@@ -76,12 +75,10 @@ const login = async (req, res) => {
     const user = result.rows[0];
     const verifiedPassword = await bcrypt.compare(password, user.password);
 
-    // Invalid credentials
     if (!verifiedPassword) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
 
-    // Successful login
     return res.status(200).json({
       user: {
         id: user.id,

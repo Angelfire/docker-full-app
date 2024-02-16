@@ -4,10 +4,12 @@ const { sanitize } = require("../utils/sanitize");
 
 const getAllPosts = async (req, res) => {
   try {
-    const { userId } = req.params;
+    // get the user id from the token payload
+    const { id } = req.payload;
 
+    // TODO: only return: id, title, content, created_at
     const posts = await pool.query("SELECT * FROM posts WHERE user_id = $1", [
-      userId,
+      id,
     ]);
 
     if (posts.rowCount === 0) {
