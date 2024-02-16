@@ -31,6 +31,8 @@ const create = async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    // use a helper function to sanitize the input data to prevent XSS attacks and other security vulnerabilities in the database
+    // find a better way to sanitize the data, this was a quick implementation
     const sanitizedTitle = sanitize(title);
     const sanitizedContent = sanitize(content);
 

@@ -73,8 +73,8 @@ const login = async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    const verifiedPassword = await bcrypt.compare(password, user.password);
     const user = result.rows[0];
+    const verifiedPassword = await bcrypt.compare(password, user.password);
 
     // Invalid credentials
     if (!verifiedPassword) {
@@ -87,7 +87,8 @@ const login = async (req, res) => {
         id: user.id,
         username: user.username,
         email: user.email,
-        accessToken: generateAccessToken(user),
+        accessToken: generateAccessToken(user, 3600),
+        expiresIn: 3600, // 1 hour
       },
     });
   } catch (error) {

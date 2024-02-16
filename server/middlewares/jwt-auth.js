@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const accessSecretKey = process.env.ACCESS_SECRET_KEY;
 
-const generateAccessToken = (user) => {
+const generateAccessToken = (user, expiresIn) => {
   if (!user.id) {
     throw new Error("Missing required user data: id");
   }
@@ -18,7 +18,7 @@ const generateAccessToken = (user) => {
   };
 
   const options = {
-    expiresIn: "1h",
+    expiresIn: expiresIn || "1h",
   };
 
   const token = jwt.sign(payload, accessSecretKey, options);
