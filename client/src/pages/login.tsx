@@ -8,6 +8,7 @@ interface UserLoginResponse {
     username: string
     email: string
     accessToken: string
+    expiresIn: number
   }
 }
 
@@ -39,6 +40,7 @@ export const Login = () => {
           userId: data.user.id,
           email: data.user.email,
           username: data.user.username,
+          expiresAt: new Date(Date.now() + data.user.expiresIn * 1000),
         })
       )
 
