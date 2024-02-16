@@ -27,21 +27,30 @@ const generateAccessToken = (user) => {
 };
 
 const verifyToken = (req, res, next) => {
-  const token = req.headers["authorization"];
+  try {
+    const authorizationHeader = req.headers["authorization"];
 
-  if (!token) {
-    return res.status(403).json({ message: "Token is required." });
-  }
-
-  jwt.verify(token, accessSecretKey, (err, payload) => {
-    if (err) {
-      return res.status(403).json({ message: "Invalid token." });
+    if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
+      throw new Error(
+        "Invalid authorization header format. Expected: Bearer <token>"
+      );
     }
 
-    req.payload = payload;
+    // Extract the token from the header
+    const token = authorizationHeader.split(" ")[1];
 
-    next();
-  });
+    jwt.verify(token, accessSecretKey, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ message: "Invalid token." });
+      }
+
+      req.payload = decoded;
+
+      next();
+    });
+  } catch (error) {
+    res.status(403).json({ message: error.message });
+  }
 };
 
 module.exports = { generateAccessToken, verifyToken };

@@ -1,6 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+
+const { verifyToken } = require("./middlewares/jwt-auth");
+
 const { getAll, login, remove, register } = require("./routes/users");
+const { create, deletePost, getAllPosts } = require("./routes/posts");
+
 const app = express();
 
 const PORT = process.env.API_PORT;
@@ -25,6 +30,11 @@ app.get("/users", getAll);
 app.post("/users/register", register);
 app.post("/users/login", login);
 app.delete("/users/:id", remove);
+
+app.get("/posts", verifyToken, getAllPosts);
+app.post("/posts/create", verifyToken, create);
+app.delete("/posts/:id", verifyToken, deletePost);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
