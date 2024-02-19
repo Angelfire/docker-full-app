@@ -60,12 +60,13 @@ const create = async (req, res) => {
 
 const deletePost = async (req, res) => {
   try {
-    const { id, userId } = req.params;
+    const { postId } = req.params;
+    const { id: userId } = req.payload;
 
     // Check if the post exists and if the user is the owner of the post
     const postCheck = await pool.query(
       "SELECT * FROM posts WHERE id = $1 and user_id = $2",
-      [id, userId]
+      [postId, userId]
     );
 
     if (postCheck.rowCount === 0) {
@@ -76,7 +77,7 @@ const deletePost = async (req, res) => {
 
     const deletePost = await pool.query(
       "DELETE FROM posts WHERE id = $1 and user_id = $2 RETURNING *",
-      [id, userId]
+      [postId, userId]
     );
 
     if (deletePost.rowCount === 0) {
@@ -86,7 +87,7 @@ const deletePost = async (req, res) => {
     if (deletePost.rowCount === 1) {
       return res
         .status(200)
-        .json({ message: `Post with ID ${id} deleted successfully` });
+        .json({ message: `Post with ID ${postId} deleted successfully` });
     }
   } catch (error) {
     console.error("Error deleting post:", error);

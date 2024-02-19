@@ -5,7 +5,7 @@ const { generateAccessToken } = require("../middlewares/jwt-auth");
 
 const remove = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const query = "DELETE FROM users WHERE id = $1";
     const values = [userId];
 

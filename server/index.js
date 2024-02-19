@@ -29,11 +29,11 @@ app
 app.get("/users", getAll);
 app.post("/users/register", register);
 app.post("/users/login", login);
-app.delete("/users/:id", remove);
+app.delete("/users/:userId", remove);
 
 app.get("/posts", verifyToken, getAllPosts);
 app.post("/posts/create", verifyToken, create);
-app.delete("/posts/:id", verifyToken, deletePost);
+app.delete("/posts/:postId", verifyToken, deletePost);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
