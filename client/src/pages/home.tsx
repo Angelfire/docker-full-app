@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { httpClient } from "../api/http-client"
+import { AuthContext } from "../context/auth-provider"
+
+import { Button } from "../components/ui/button"
+
+import { DeletePost } from "../components/delete-post"
 
 interface User {
   userId: number
@@ -19,22 +24,38 @@ interface Post {
 
 export const Home = () => {
   const navigate = useNavigate()
+  const { logout } = useContext(AuthContext)
 
   const [user, setUser] = useState<User | null>(null)
   const [posts, setPosts] = useState<Post[]>([])
-
-  const logout = () => {
-    sessionStorage.removeItem("token")
-    sessionStorage.removeItem("user")
-
-    navigate("/login")
-  }
 
   const isTokenExpired = (expiresAt: Date): boolean => {
     const now = new Date()
     const expirationDate = new Date(expiresAt)
 
     return expirationDate < now
+  }
+
+  const handleDeletePost = async (id: number) => {
+    try {
+      const token = sessionStorage.getItem("token")
+
+      if (!token) {
+        console.error("No token found. Redirecting to login...")
+
+        navigate("/login")
+
+        return
+      }
+
+      await httpClient.delete(`/posts/${id}`, {
+        Authorization: `Bearer ${token}`,
+      })
+
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id))
+    } catch (error) {
+      console.error("Error deleting post:", error)
+    }
   }
 
   useEffect(() => {
@@ -79,7 +100,7 @@ export const Home = () => {
         setUser(parsedUser)
       }
     }
-  }, [navigate])
+  }, [])
 
   return (
     <div className="grid min-h-screen w-full grid-cols-[280px_1fr] bg-slate-50">
@@ -93,13 +114,9 @@ export const Home = () => {
           </span>
         </div>
 
-        <button
-          type="button"
-          className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-          onClick={logout}
-        >
+        <Button variant="primary" onClick={logout}>
           Logout
-        </button>
+        </Button>
       </aside>
       <main className="m-3 ml-4 flex flex-1 flex-col gap-4 rounded-lg border bg-white p-4 md:gap-8 md:p-6">
         <h2 className="text-3xl font-bold">Posts</h2>
@@ -134,14 +151,10 @@ export const Home = () => {
                     {new Date(post.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button
-                      className="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      onClick={() => {
-                        console.log("Delete post", post.id)
-                      }}
-                    >
-                      Delete
-                    </button>
+                    <DeletePost
+                      postId={post.id}
+                      handleDelete={handleDeletePost}
+                    />
                   </td>
                 </tr>
               ))}

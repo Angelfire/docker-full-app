@@ -17,6 +17,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           variant === "primary",
         "bg-red-500 hover:bg-red-700 text-white ring-offset-red-700":
           variant === "destructive",
+        "border border-input bg-white hover:bg-slate-50": variant === "outline",
       },
       className
     )

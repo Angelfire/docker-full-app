@@ -2,6 +2,10 @@ import { Link } from "react-router-dom"
 
 import { httpClient, HttpResponse } from "../api/http-client"
 
+import { Button } from "../components/ui/button"
+import { Label } from "../components/ui/label"
+import { Input } from "../components/ui/input"
+
 interface UserRegisterResponse {
   message: string
 }
@@ -85,62 +89,41 @@ export const Register = () => {
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label
-                  htmlFor="username"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Username
-                </label>
-                <input
+                <Label htmlFor="username">Username</Label>
+                <Input
                   type="username"
                   name="username"
                   id="username"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5"
                   placeholder="username"
                   aria-label="Username"
                   required
                 />
               </div>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Email
-                </label>
-                <input
+                <Label htmlFor="email">Email</Label>
+                <Input
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5"
                   placeholder="name@company.com"
                   aria-label="Email"
                   required
                 />
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Password
-                </label>
-                <input
+                <Label htmlFor="password">Password</Label>
+                <Input
                   type="password"
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5"
                   aria-label="Password"
                   required
                 />
               </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
+              <Button type="submit" variant="primary" className="w-full">
                 Sign in
-              </button>
+              </Button>
               <p className="text-sm font-light text-gray-500 ">
                 Already have an account?{" "}
                 <Link
