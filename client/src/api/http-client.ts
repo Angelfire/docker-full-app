@@ -10,6 +10,7 @@ export interface HttpResponse<T> {
 interface HttpClient {
   get<T>(url: string, headers?: Record<string, string>): Promise<HttpResponse<T>>;
   post<T>(url: string, data: Record<string, string>, headers?: Record<string, string>): Promise<HttpResponse<T>>;
+  delete<T>(url: string, headers?: Record<string, string>): Promise<HttpResponse<T>>;
 }
 
 const handleResponse = async <T>(response: Response): Promise<HttpResponse<T>> => {
@@ -42,6 +43,15 @@ export const httpClient: HttpClient = {
         ...headers,
       }),
       body: JSON.stringify(data),
+    });
+
+    return handleResponse<T>(response);
+  },
+
+  delete: async <T>(url: string, headers = {}): Promise<HttpResponse<T>> => {
+    const response = await fetch(`${baseURL}${url}`, {
+      method: 'DELETE',
+      headers: applyHeaders(headers),
     });
 
     return handleResponse<T>(response);
