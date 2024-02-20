@@ -146,22 +146,30 @@ export const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {posts.map((post) => (
-                <tr key={post.id} className="bg-white border-b">
-                  <td className="px-6 py-4">{post.id}</td>
-                  <td className="px-6 py-4">{post.title}</td>
-                  <td className="px-6 py-4">{post.content}</td>
-                  <td className="px-6 py-4">
-                    {new Date(post.created_at).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <DeletePost
-                      postId={post.id}
-                      handleDelete={handleDeletePost}
-                    />
+              {posts.length > 0 ? (
+                posts.map((post) => (
+                  <tr key={post.id} className="bg-white border-b">
+                    <td className="px-6 py-4">{post.id}</td>
+                    <td className="px-6 py-4">{post.title}</td>
+                    <td className="px-6 py-4">{post.content}</td>
+                    <td className="px-6 py-4">
+                      {new Date(post.created_at).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <DeletePost
+                        postId={post.id}
+                        handleDelete={handleDeletePost}
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5} className="text-center py-4">
+                    No posts found!
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
