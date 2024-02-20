@@ -7,6 +7,7 @@ import { AuthContext } from "../context/auth-provider"
 import { Button } from "../components/ui/button"
 
 import { DeletePost } from "../components/delete-post"
+import { AddPost } from "../components/add-post"
 
 interface User {
   userId: number
@@ -119,7 +120,10 @@ export const Home = () => {
         </Button>
       </aside>
       <main className="m-3 ml-4 flex flex-1 flex-col gap-4 rounded-lg border bg-white p-4 md:gap-8 md:p-6">
-        <h2 className="text-3xl font-bold">Posts</h2>
+        <div className="flex flex-row gap-x-2">
+          <h2 className="text-3xl font-bold">Posts</h2>
+          <AddPost />
+        </div>
         <div className="relative overflow-x-auto sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
