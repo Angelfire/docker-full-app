@@ -27,9 +27,12 @@ const getAllPosts = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const { title, content, userId } = req.body;
+    const { title, content } = req.body;
 
-    if (!title || !content || !userId) {
+    // get the user id from the token payload
+    const { id: userId } = req.payload;
+
+    if (!title || !content) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
