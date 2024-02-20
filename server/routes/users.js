@@ -1,9 +1,10 @@
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
-const pool = require("../config/db-config");
-const { generateAccessToken } = require("../middlewares/jwt-auth");
+import { pool } from "../config/db-config.js";
 
-const remove = async (req, res) => {
+import { generateAccessToken } from "../middlewares/jwt-auth.js";
+
+export const deleteUser = async (req, res) => {
   try {
     const userId = req.params.userId;
     const query = "DELETE FROM users WHERE id = $1";
@@ -17,7 +18,7 @@ const remove = async (req, res) => {
   }
 };
 
-const getAll = async (req, res) => {
+export const getAll = async (req, res) => {
   try {
     const query = "SELECT * FROM users";
     const result = await pool.query(query);
@@ -28,7 +29,7 @@ const getAll = async (req, res) => {
   }
 };
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const { username, password, email } = req.body;
 
@@ -55,7 +56,7 @@ const register = async (req, res) => {
 };
 
 // TODO: Validate that 2 users cannot have the same email address
-const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -103,5 +104,3 @@ const logout = (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-module.exports = { getAll, login, register, remove };

@@ -1,4 +1,4 @@
-const sanitize = (str) => {
+export const sanitize = (str) => {
   const map = {
     "&": "&amp;",
     '"': "&quot;",
@@ -11,5 +11,3 @@ const sanitize = (str) => {
 
   return str.replace(reg, (match) => map[match]);
 };
-
-module.exports = { sanitize };

@@ -1,8 +1,8 @@
-const pool = require("../config/db-config");
+import { pool } from "../config/db-config.js";
 
-const { sanitize } = require("../utils/sanitize");
+import { sanitize } from "../utils/sanitize.js";
 
-const getAllPosts = async (req, res) => {
+export const getAllPosts = async (req, res) => {
   try {
     // get the user id from the token payload
     const { id } = req.payload;
@@ -25,7 +25,7 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const create = async (req, res) => {
+export const create = async (req, res) => {
   try {
     const { title, content } = req.body;
 
@@ -61,7 +61,7 @@ const create = async (req, res) => {
   }
 };
 
-const deletePost = async (req, res) => {
+export const deletePost = async (req, res) => {
   try {
     const { postId } = req.params;
     const { id: userId } = req.payload;
@@ -97,5 +97,3 @@ const deletePost = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
-module.exports = { create, deletePost, getAllPosts };

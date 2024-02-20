@@ -1,35 +1,37 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
 
-const { verifyToken } = require("./middlewares/jwt-auth");
+import { verifyToken } from "./middlewares/jwt-auth.js";
 
-const { getAll, login, remove, register } = require("./routes/users");
-const { create, deletePost, getAllPosts } = require("./routes/posts");
+import { deleteUser, getAll, login, register } from "./routes/users.js";
+import { create, deletePost, getAllPosts } from "./routes/posts.js";
 
 const app = express();
-
 const PORT = process.env.API_PORT;
-const FRONTEND_URL = process.env.REACT_HOST;
+const CLIENT_HOSTNAME = process.env.CLIENT_HOSTNAME;
 
-app
-  // Middleware to parse JSON data in the request body
-  .use(express.json())
-  // Middleware to parse URL-encoded form data in the request body
-  .use(express.urlencoded({ extended: true }))
-  // Middleware to enable CORS
-  // if you specify the origin directly as string it does not work
-  // but if you specify it as an environment variable it works fine o.O
-  .use(
-    cors({
-      origin: FRONTEND_URL,
-      methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
-    })
-  );
+console.log(verifyToken);
+
+// Middleware to parse JSON data in the request body
+app.use(express.json());
+
+// Middleware to parse URL-encoded form data in the request body
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware to enable CORS
+// if you specify the origin directly as string it does not work
+// but if you specify it as an environment variable it works fine o.O
+app.use(
+  cors({
+    origin: CLIENT_HOSTNAME,
+    methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+  })
+);
 
 app.get("/users", getAll);
 app.post("/users/register", register);
 app.post("/users/login", login);
-app.delete("/users/:userId", remove);
+app.delete("/users/:userId", deleteUser);
 
 app.get("/posts", verifyToken, getAllPosts);
 app.post("/posts/create", verifyToken, create);

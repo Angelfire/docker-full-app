@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 const accessSecretKey = process.env.ACCESS_SECRET_KEY;
 
-const generateAccessToken = (user, expiresIn) => {
+export const generateAccessToken = (user, expiresIn) => {
   if (!user.id) {
     throw new Error("Missing required user data: id");
   }
@@ -26,7 +26,7 @@ const generateAccessToken = (user, expiresIn) => {
   return token;
 };
 
-const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
   try {
     const authorizationHeader = req.headers["authorization"];
 
@@ -52,5 +52,3 @@ const verifyToken = (req, res, next) => {
     res.status(403).json({ message: error.message });
   }
 };
-
-module.exports = { generateAccessToken, verifyToken };
