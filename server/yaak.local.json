@@ -1,0 +1,230 @@
+{
+  "yaakVersion": "2024.2.0",
+  "yaakSchema": 1,
+  "timestamp": "2024-02-20T19:34:33.677528",
+  "resources": {
+    "workspaces": [
+      {
+        "id": "wk_FZggLVovTz",
+        "model": "workspace",
+        "createdAt": "2024-02-09T17:36:14",
+        "updatedAt": "2024-02-20T15:02:12",
+        "name": "Local",
+        "description": "",
+        "variables": [
+          {
+            "enabled": true,
+            "name": "base_url",
+            "value": "http://localhost:4000"
+          }
+        ],
+        "settingValidateCertificates": false,
+        "settingFollowRedirects": false,
+        "settingRequestTimeout": 0
+      }
+    ],
+    "environments": [
+      {
+        "id": "ev_SmVcsVeesA",
+        "workspaceId": "wk_FZggLVovTz",
+        "model": "workspace",
+        "createdAt": "2024-02-09T17:36:50",
+        "updatedAt": "2024-02-20T15:02:12",
+        "name": "Local Env",
+        "variables": [
+          {
+            "enabled": true,
+            "name": "base_url",
+            "value": "http://localhost:4000"
+          },
+          {
+            "enabled": true,
+            "name": "",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "folders": [
+      {
+        "createdAt": "2024-02-09T17:36:20",
+        "updatedAt": "2024-02-20T15:02:12",
+        "id": "fl_HOrd4KZ4JQ",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": null,
+        "model": "folder",
+        "name": "Node-API",
+        "sortPriority": -1707500180717.0
+      }
+    ],
+    "requests": [
+      {
+        "createdAt": "2024-02-09T17:40:02",
+        "updatedAt": "2024-02-20T15:02:12",
+        "id": "rq_JRdimu4Opq",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": "fl_HOrd4KZ4JQ",
+        "model": "http_request",
+        "sortPriority": -1707500195493.0,
+        "name": "Register Users",
+        "url": "${[ base_url ]}/users/register",
+        "urlParameters": [],
+        "method": "POST",
+        "body": {
+          "text": "{\n\"username\": \"Andy\",\n\"password\": \"validPass\",\n\"email\": \"andy@email.com\"\n}"
+        },
+        "bodyType": "application/json",
+        "authentication": {},
+        "authenticationType": null,
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "createdAt": "2024-02-09T17:53:31",
+        "updatedAt": "2024-02-20T16:03:11",
+        "id": "rq_r5g5rBZAC6",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": "fl_HOrd4KZ4JQ",
+        "model": "http_request",
+        "sortPriority": -1707500195493.0,
+        "name": "Delete User",
+        "url": "${[ base_url ]}/users/02c2b0a1-16e9-4b50-b20b-2e965f9af6ca",
+        "urlParameters": [],
+        "method": "DELETE",
+        "body": {},
+        "bodyType": null,
+        "authentication": {},
+        "authenticationType": null,
+        "headers": []
+      },
+      {
+        "createdAt": "2024-02-09T18:22:49",
+        "updatedAt": "2024-02-20T15:02:12",
+        "id": "rq_PpxR7cTSLa",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": "fl_HOrd4KZ4JQ",
+        "model": "http_request",
+        "sortPriority": -853750097746.5,
+        "name": "Get Users",
+        "url": "${[ base_url ]}/users",
+        "urlParameters": [],
+        "method": "GET",
+        "body": {},
+        "bodyType": null,
+        "authentication": {},
+        "authenticationType": null,
+        "headers": []
+      },
+      {
+        "createdAt": "2024-02-12T17:33:26",
+        "updatedAt": "2024-02-20T15:02:12",
+        "id": "rq_NVUCfbmRuf",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": "fl_HOrd4KZ4JQ",
+        "model": "http_request",
+        "sortPriority": -853750097746.4999,
+        "name": "Login User",
+        "url": "${[ base_url ]}/users/login",
+        "urlParameters": [],
+        "method": "POST",
+        "body": {
+          "text": "{\n\"password\": \"validPass\",\n\"email\": \"andy@email.com\"\n}"
+        },
+        "bodyType": "application/json",
+        "authentication": {},
+        "authenticationType": null,
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "createdAt": "2024-02-16T00:11:50",
+        "updatedAt": "2024-02-20T15:02:12",
+        "id": "rq_rEgkad5feT",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": "fl_HOrd4KZ4JQ",
+        "model": "http_request",
+        "sortPriority": -853750097746.4999,
+        "name": "Create Post",
+        "url": "${[ base_url ]}/posts/create",
+        "urlParameters": [],
+        "method": "POST",
+        "body": {
+          "text": "{\n  \"title\": \"Testing posts number 3\",\n  \"content\": \"Testing short content or maybe a little longer or more\",\n  \"userId\": \"6aa087a4-c240-4574-a3a8-1776b06d9321\"\n}"
+        },
+        "bodyType": "application/json",
+        "authentication": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhYTA4N2E0LWMyNDAtNDU3NC1hM2E4LTE3NzZiMDZkOTMyMSIsImlhdCI6MTcwODM2MzY0MiwiZXhwIjoxNzA4MzY3MjQyfQ.PCbIDFiD4xuPQideqRBu1II8VAp4LtyK11rdWvt1WtY"
+        },
+        "authenticationType": "bearer",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "createdAt": "2024-02-16T17:33:05",
+        "updatedAt": "2024-02-20T15:02:27",
+        "id": "rq_6BtAQzP149",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": "fl_HOrd4KZ4JQ",
+        "model": "http_request",
+        "sortPriority": -853750097746.4998,
+        "name": "Get Posts",
+        "url": "${[ base_url ]}/posts",
+        "urlParameters": [],
+        "method": "GET",
+        "body": {},
+        "bodyType": null,
+        "authentication": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhYTA4N2E0LWMyNDAtNDU3NC1hM2E4LTE3NzZiMDZkOTMyMSIsImlhdCI6MTcwODEyMjkxOCwiZXhwIjoxNzA4MTI2NTE4fQ.P9iDhDPDYteyLlSdtLi7jlnEsG9kzoj2HGbCshQzQdM"
+        },
+        "authenticationType": "bearer",
+        "headers": []
+      },
+      {
+        "createdAt": "2024-02-19T16:32:57",
+        "updatedAt": "2024-02-20T15:02:24",
+        "id": "rq_czCx1f8zyB",
+        "workspaceId": "wk_FZggLVovTz",
+        "folderId": "fl_HOrd4KZ4JQ",
+        "model": "http_request",
+        "sortPriority": -853750097746.4998,
+        "name": "Delete Post",
+        "url": "${[ base_url ]}/posts/{{id}}",
+        "urlParameters": [
+          {
+            "enabled": true,
+            "name": "id",
+            "value": "4e83998c-aa00-48df-be14-ba76bd504658"
+          },
+          {
+            "enabled": true,
+            "name": "",
+            "value": ""
+          }
+        ],
+        "method": "DELETE",
+        "body": {},
+        "bodyType": null,
+        "authentication": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhYTA4N2E0LWMyNDAtNDU3NC1hM2E4LTE3NzZiMDZkOTMyMSIsImlhdCI6MTcwODM1OTk3NywiZXhwIjoxNzA4MzYzNTc3fQ.xVLd_MoIai6QCSQAtkSGuUsERdiBQsjgLvZpinGEYBU"
+        },
+        "authenticationType": "bearer",
+        "headers": []
+      }
+    ]
+  }
+}

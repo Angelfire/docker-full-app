@@ -2,10 +2,9 @@
 
 ## Stack
 
-The backend is dockerized, to practice a little and to not have to install postgreSQL on my machine
-
 ### Backend
 
+- Docker
 - Node.js
 - Express.js
 - JWT
@@ -21,4 +20,5 @@ The backend is dockerized, to practice a little and to not have to install postg
 
 ### TODO
 
-[ ] Testing
+- [ ] Testing (backend and frontend)
+- [ ] Handling errors in React forms
