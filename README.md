@@ -22,6 +22,8 @@
 
 - [ ] Testing (backend and frontend)
 - [ ] Handling errors in React forms
+- [ ] TS with Zod for the backend
+- [ ] Zod for the frontend to validate forms
 
 ### images
 ![register](https://github.com/Angelfire/docker-full-app/assets/315504/3b8c714d-e3a6-4cf2-88ce-70f9bfe4c477)
