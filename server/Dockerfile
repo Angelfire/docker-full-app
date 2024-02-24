@@ -10,7 +10,8 @@ COPY package*.json ./
 RUN npm ci
 
 # copy the current directory contents into the container at WORKDIR
-COPY . .
+# COPY . .
+COPY src/ ./src
 
 # Make port 4000 available to the world outside this container
 EXPOSE 4000

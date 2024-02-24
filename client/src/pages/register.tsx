@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { httpClient, HttpResponse } from "../api/http-client"
 
@@ -15,6 +16,7 @@ export const Register = () => {
   // const [usernameError, setUsernameError] = useState<string | null>(null)
   // const [emailError, setEmailError] = useState<string | null>(null)
   // const [passwordError, setPasswordError] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -71,6 +73,7 @@ export const Register = () => {
       // Ideally we would show a success message to the user here instead of logging to the console :)
       if (status === 200) {
         console.log(data?.message)
+        navigate("/login")
       }
 
       form.reset()
