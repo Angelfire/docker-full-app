@@ -10,8 +10,6 @@ const app = express();
 const PORT = process.env.API_PORT;
 const CLIENT_HOSTNAME = process.env.CLIENT_HOSTNAME;
 
-console.log(verifyToken);
-
 // Middleware to parse JSON data in the request body
 app.use(express.json());
 

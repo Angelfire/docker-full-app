@@ -18,3 +18,4 @@ services:
     volumes:
       - ./src:/usr/src/app/src
       - ./.env:/usr/src/app/.env
+
